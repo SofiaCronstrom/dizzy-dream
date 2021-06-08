@@ -1,0 +1,136 @@
+<html>
+  <head>
+      
+   <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
+  </head>
+  
+  <body>
+    <script>
+      // Component to change to a sequential color on click.
+AFRAME.registerComponent('cursor-listener', {
+  init: function () {
+    let lastIndex = -1;
+    let Opacity = ['0', '0.2', '0.6', '0.8', '1', '0'];
+    
+    this.el.addEventListener('click', function (evt) {
+    lastIndex = (lastIndex + 1) % Opacity.length;
+    this.setAttribute('material', 'opacity', Opacity[lastIndex]);
+      if (lastIndex === 5){
+        window.location.href = 'level2.html'
+      }
+       });
+   
+    
+      
+  
+    
+  }
+});
+    </script>
+    <a-scene inspector-plugin-recast > 
+      
+      
+          
+     <a-asset-item
+       id="nav-mesh"
+       src="assets/navmesh.gltf"
+      ></a-asset-item>
+      
+      <a-assets>
+        <img id="skyImg"
+             src="assets/pink-sky.jpg">
+        <img id="cylinderImg"
+             src="assets/pink-cyl.jpg">
+      </a-assets>
+      
+      <a-entity movement-controls="speed: 0.15; constrainToNavMesh: true">
+        <a-entity
+          camera
+          position="0 1.2 8"
+          look-controls="pointerLockEnabled: true"
+        >
+          <a-sound src="assets/turb1.wav" autoplay="true"
+               position="0 0 0" loop="true" volume="0.5" ></a-sound>
+          
+         <a-entity cursor="fuse: true; fuseTimeout: 100"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: black; shader: flat">
+  </a-entity>
+        </a-entity
+      ></a-entity>
+    
+      
+        <a-sky
+             src="#skyImg"
+        shader="standard"
+             ></a-sky>
+     <a-light light="type: ambient; color:#ffff; intensity: 1; "></a-light>
+      
+  <a-cylinder  position="0 1.25509  0" 
+              open-ended="true" 
+              scale="1.09 1.81542 1.06" 
+              material="side: double; opacity: 0.5" 
+              radius="1" 
+              animation="property: rotation; 
+                         from: 90 0 0; 
+                         to: 90 360 0; 
+                         loop: true; 
+                         easing: easeInOutSine" 
+              src="#cylinderImg"  >
+  </a-cylinder>
+      
+
+    <a-box cursor-listener 
+           transparency="true" 
+           sound="src: assets/help.ogg; on: click"
+           rotation="40 59.99999999999999 -125.00000000000001" 
+           geometry="width: 0.3; depth: 0.3; height: 0.3" 
+           position="0.3 2 2" 
+           src="assets/teddy.jpg" 
+           material="opacity: 0">
+      </a-box>
+    <a-light
+               type="point" intensity="0.2" color="#b8affa" position="0 2 0.15619" ></a-light>
+      <a-cylinder position="0 1.25509 4.34191" radius="1" open-ended="true" scale="1.09 6.23129 1.06" material="side: double; opacity: 0.5" animation="property: rotation; from: 90 0 0; to: 90 360 0; loop: true; easing: easeInOutSine" src="#cylinderImg" geometry="">
+      </a-cylinder>
+       
+      <a-entity text-geometry="value: 'Sometimes in my dreams; size: 0.1;"
+                position="-0.3 1.5 7.5"
+                rotation="60 90 0" 
+                scale="0.9 0.9 0" 
+                material="color: #093d01 ;" ></a-entity>
+      
+      <a-entity text-geometry="value:I get so stressed that; size: 0.1" 
+                position="-0.9 1. 7"
+                rotation="0 90 0" 
+                scale="0.9 0.9 0" 
+                material="color: "></a-entity>
+      
+      <a-entity text-geometry="value: everything starts to spinn…'; size: 0.1" 
+                position="-0.5 0.7 7"
+                rotation="-60 90 0" 
+                scale="0.9 0.9 0" 
+                material="color: #093d01;"></a-entity>
+      
+      <a-entity text-geometry="value: 'where are you?'; size: 0.1;"
+                position="0.9 1. 6"
+                rotation="-19.5 -90 0" 
+                scale="0.2 0.2 0" 
+                material="color: #0c0057;" ></a-entity>
+       <a-plane 
+               src="#skyImg"
+               shader="standard"
+               rotation="-90 0 0"
+               width="10" 
+               height="22"
+               position="0 0 4.4">
+      </a-plane>
+         <a-entity visible="false" gltf-model="#nav-mesh" nav-mesh ></a-entity>
+    </a-scene>
+
+  </body>
+</html>

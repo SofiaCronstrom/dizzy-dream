@@ -1,0 +1,192 @@
+<html>
+  <head>
+      
+   <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
+  </head>
+  
+  <body>
+  <script>
+    AFRAME.registerComponent ('dodec', {
+      init: function(){
+        
+        console.log(dodec);
+        this.el.addEventListener('click', function (evt){
+          this.setAttribute('animation', 'property' , 'rotation');
+          this.setAttribute( 'material', 'opacity', '1')
+        });
+      }
+    });
+    
+     AFRAME.registerComponent ('triangle', {
+      init: function(){
+        
+        this.el.addEventListener('click', function (evt){
+          this.setAttribute('animation', 'property' , 'rotation');
+          this.setAttribute( 'material', 'opacity', '1')
+        });
+      }
+    });
+       AFRAME.registerComponent ('sphere', {
+      init: function(){
+        
+        this.el.addEventListener('click', function (evt){
+          this.setAttribute('animation', 'property' , 'rotation');
+          this.setAttribute( 'material', 'opacity', '1')
+        });
+      }
+    });
+        AFRAME.registerComponent ('donut', {
+      init: function(){
+        
+        this.el.addEventListener('click', function (evt){
+          this.setAttribute('animation', 'property' , 'rotation');
+          this.setAttribute( 'material', 'opacity', '1')
+        });
+      }
+    });
+        AFRAME.registerComponent ('plane', {
+      init: function(){
+        
+        this.el.addEventListener('click', function (evt){
+          this.removeAttribute('rotation', '-90 0 0');
+          this.setAttribute('animation', {property: 'rotation' ,  from: '-90 -50 0'  , to: '-90 20 0'});
+          
+        });
+      }
+    });
+    </script>
+    
+    
+    
+    
+    
+    
+    <a-scene inspector-plugin-recast> 
+      
+      
+          
+     <a-asset-item
+       id="nav-mesh"
+       src="assets/navmesh.gltf"
+      ></a-asset-item>
+      
+      <a-assets>
+        <img id="skyImg"
+             src="assets/green-sky.jpg">
+        <img id="cylinderImg"
+             src="assets/green-cyl.jpg">
+      </a-assets>
+      
+      <a-entity movement-controls="speed: 0.15; constrainToNavMesh: true">
+        <a-entity
+          camera
+          position="0 1 7"
+          look-controls="pointerLockEnabled: true"
+        >
+          <a-sound src="assets/turb3.wav" autoplay="true"
+               position="0 0 0" loop="true" volume="0.5" ></a-sound>
+          
+         <a-entity cursor="fuse: true; fuseTimeout: 100"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: black; shader: flat">
+  </a-entity>
+        </a-entity
+      ></a-entity>
+    
+      
+        <a-sky
+             src="#skyImg"
+        shader="standard"
+             ></a-sky>
+      
+     <a-light light="type: ambient; color:#ffff; intensity: 1; penumbra: 1; "></a-light>
+     
+      <!--dodecahedron-->
+      <a-entity dodec id="dodec" animation=" to: 360 0 0; loop: true; dur: 500" position="0 2 0"  geometry="primitive: dodecahedron; radius: 0.5" material="color: #8402c4; shader: standard; opacity: 0.3" sound="src: assets/jorge_swoosh.mp3; on: click"></a-entity>
+  
+<a-cylinder 
+              position="0 1.25509  0" 
+              open-ended="true" 
+              scale="1.09 1.81542 1.06" 
+              material="side: double; opacity: 0.6" 
+              radius="1" 
+              animation="property: rotation; 
+                         from: 90 0 0; 
+                         to: 90 180 0; 
+                        
+                         loop: true;
+                         dur: 200;" 
+              src="#cylinderImg"  >
+  </a-cylinder>
+      
+      <!--ring-->
+      <a-entity position="-0.020 6.036 8.980" geometry="primitive: ring; radiusInner: 0; radiusOuter: 0.3"
+         rotation="90 0 8" material="side: double; color: #fcfc03"> 
+        
+      <a-entity light="type: point; intensity: 3; distance: 5; decay: 3"
+          position="0.806 -0.317 -2.688" material="color: #fcfc03"></a-entity>
+      </a-entity>
+      
+      <!--Sphere-->
+      <a-entity sphere rotation="0 0 0" animation="to: 90 0 0; loop: true; dur: 5000">
+      <a-entity sphere material="color: #0ff7ec; opacity: 0.7" position="-0.020 0 5" geometry="primitive: sphere; segmentsWidth: 5; segmentsHeight: 5" scale="0.5 0.5 0.5" rotation="-90 90 90" sound="src: assets/jorge_swoosh.mp3; on: click"></a-entity>
+      </a-entity>
+      
+ <a-cylinder position="0 1.25509 4.34191" 
+             radius="1" 
+             open-ended="true" 
+             scale="1.09 6.23129 1.06" 
+             material="side: double; opacity: 0.6" 
+             animation="property: rotation; 
+                        from: 90 0 0; 
+                        to: 90 180 0; 
+                        dir: alternate; 
+                        loop: true;
+                        
+                        dur: 2000;" 
+             src="#cylinderImg" 
+             >
+
+      </a-cylinder>
+      
+      <a-entity text-geometry="value: 'I need to get out!!'; size: 0.1;"
+                position="-0.3 1.4 6"
+                rotation="0 0 0" 
+                scale="0.3 0.3 0" 
+                material="color: #060257;" ></a-entity>
+      
+      <!--triangle-->
+      <a-entity  triangle animation=" to: 0 0 -90; loop: true; dur: 8000; dir: alternate;">
+      <a-entity triangle position="-2 1 4.34191" geometry="primitive: triangle" material="side: double; color: #ff0537; opacity: 0.5" scale="2 2 2" sound="src: assets/jorge_swoosh.mp3; on: click"></a-entity>
+      </a-entity>
+      <!--donut-->
+       <a-entity donut animation="to: 0 360 0; loop: true; dur: 10000" position="1.5 1.25509 4.34191" rotation="0 180 90" geometry="primitive: torus; radiusInner: 0.3; radius: 0.5;"  material="color: #f5a802; shader: standard; opacity: 0.3" sound="src: assets/jorge_swoosh.mp3; on: click"></a-entity>
+
+  
+      
+       <a-plane plane
+               src="#skyImg"
+               shader="standard"
+               rotation="-90 0 0"
+               width="10" 
+               height="22"
+               position="0 0 4.4"
+               animation=" 
+                         from: -90 -50 0; 
+                         to: -90 20 0;
+                            dir: alternate;
+                            loop: true;
+                            dur: 5000;"
+                >
+      </a-plane>
+      
+         <a-entity visible="false" gltf-model="#nav-mesh" nav-mesh ></a-entity>
+    
+    </a-scene>
+
+  </body>
+</html>
